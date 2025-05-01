@@ -17,7 +17,9 @@ class VideoPlayer(QMainWindow):
         open_button.setGeometry(100, 40, 100, 40)  
 
     def open_file(self):
-        file_path, _ = QFileDialog.getOpenFileName(self)
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Open Video File", "", "Video Files (*.mp4 *.avi *.mkv *.mov)"
+        )
         if file_path:
             media = self.vlc_instance.media_new(file_path)
             self.media_player.set_media(media)
