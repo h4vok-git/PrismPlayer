@@ -1,7 +1,7 @@
 import sys
 import vlc
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QWidget, QVBoxLayout, QHBoxLayout, QSlider
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 
 
@@ -15,6 +15,12 @@ class VideoPlayer(QMainWindow):
         self.vlc_instance = vlc.Instance()
         self.media_player = self.vlc_instance.media_player_new()
         self.init_ui()
+
+        # timer is used to update the seekbar 
+        self.timer = QTimer(self)
+        self.timer.setInterval(1000)
+        self.timer.timeout.connect(self.update_seekbar)
+
 
     def init_ui(self):
         #used for displaying video inside the window
@@ -40,12 +46,19 @@ class VideoPlayer(QMainWindow):
         control_layout.addWidget(self.play_button)
         control_layout.addWidget(self.pause_button)
         control_layout.addWidget(self.stop_button)
+
+        #draws the seek bar
+        self.seek_bar = QSlider(Qt.Horizontal, self)
+        self.seek_bar.setRange(0, 1000)
+        self.seek_bar.sliderMoved.connect(self.set_position)
        
-        #draws the black box for video
+        #draws the black box for video and the seek bar
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.video_widget)
+        main_layout.addWidget(self.seek_bar)
         main_layout.addLayout(control_layout)
         central_widget.setLayout(main_layout)
+
 
     def play_video(self):
         self.media_player.play()
@@ -66,6 +79,13 @@ class VideoPlayer(QMainWindow):
             self.media_player.set_hwnd(int(self.video_widget.winId()))
             self.play_video()
 
+    def update_seekbar(self):
+        if self.media_player.is_playing():
+            pos = self.media_player.get_position()  # 0.0 to 1.0
+            self.seek_bar.setValue(int(pos * 1000))
+
+    def set_position(self, value):
+        self.media_player.set_position(value / 1000.0)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
