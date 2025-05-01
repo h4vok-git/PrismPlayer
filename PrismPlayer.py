@@ -105,6 +105,9 @@ class VideoPlayer(QMainWindow):
             self.media_player.set_media(media)
             self.media_player.set_hwnd(int(self.video_widget.winId()))
             self.play_video()
+            # whisper transcription
+            subtitles = transcribe_video(file_path)
+            print(subtitles)
 
     def update_seekbar(self):
         if self.media_player.is_playing():
