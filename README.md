@@ -3,12 +3,12 @@ Prism player is modern media player with support for AI generated subtitles usin
 
 prerequisties: install ffmpeg 
 
-you can use the following command if you have chocolately installed on windows >>>  "choco install ffmpeg"
+you can use the following command if you have chocolately installed on windows >>> <code style="color : red"> "choco install ffmpeg" </code>
 
-you will also need the following libraries
-python-vlc : to render video 
-PyQt5 : for GUI
-openai-whisper : neeeded for ai subtitles 
-pydub : used for feeding whisper the correct audio
+you will also need the following libraries <br />
+python-vlc : to render video <br />
+PyQt5 : for GUI<br />
+openai-whisper : neeeded for ai subtitles <br />
+pydub : used for feeding whisper the correct audio<br />
 
-you can use the following command to install all these python libraries using pip >>> "pip install pyqt5 python-vlc openai-whisper pydub"
+you can use the following command to install all these python libraries using pip >>> <code style="color : red"> "pip install pyqt5 python-vlc openai-whisper pydub" </code>
