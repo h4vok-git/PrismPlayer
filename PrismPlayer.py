@@ -34,11 +34,13 @@ class VideoPlayer(QMainWindow):
         self.pause_button = QPushButton("Pause", self)
         self.stop_button = QPushButton("Stop", self)
         self.open_button = QPushButton("Open", self)
+        self.fullscreen_button = QPushButton("Fullscreen", self)
 
         self.play_button.clicked.connect(self.play_video)
         self.pause_button.clicked.connect(self.pause_video)
         self.stop_button.clicked.connect(self.stop_video)
         self.open_button.clicked.connect(self.open_file)
+        self.fullscreen_button.clicked.connect(self.toggle_fullscreen)
 
         # draws buttons  
         control_layout = QHBoxLayout()
@@ -46,6 +48,7 @@ class VideoPlayer(QMainWindow):
         control_layout.addWidget(self.play_button)
         control_layout.addWidget(self.pause_button)
         control_layout.addWidget(self.stop_button)
+        control_layout.addWidget(self.fullscreen_button)
 
         #draws the seek bar
         self.seek_bar = QSlider(Qt.Horizontal, self)
@@ -62,12 +65,20 @@ class VideoPlayer(QMainWindow):
 
     def play_video(self):
         self.media_player.play()
+        self.timer.start()
 
     def pause_video(self):
         self.media_player.pause()
 
     def stop_video(self):
         self.media_player.stop()
+        self.timer.stop()
+    
+    def toggle_fullscreen(self):
+        if self.isFullScreen():
+            self.showNormal()
+        else:
+            self.showFullScreen()
 
     def open_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
@@ -86,6 +97,8 @@ class VideoPlayer(QMainWindow):
 
     def set_position(self, value):
         self.media_player.set_position(value / 1000.0)
+
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
