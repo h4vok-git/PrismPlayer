@@ -1,3 +1,4 @@
+from ai_subs import transcribe_video
 import sys
 import vlc
 from PyQt5.QtCore import Qt, QTimer
