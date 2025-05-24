@@ -12,3 +12,5 @@ openai-whisper : neeeded for ai subtitles <br />
 pydub : used for feeding whisper the correct audio<br />
 
 you can use the following command to install all these python libraries using pip >>> <code style="color : red"> "pip install pyqt5 python-vlc openai-whisper pydub" </code>
+
+PrismPlayer Video Showcase: https://www.youtube.com/watch?v=78ydojhfUmE
